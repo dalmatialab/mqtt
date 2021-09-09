@@ -4,6 +4,7 @@
 # Supported tags and respective Dockerfile links
 
  - 2.0-rc-1
+ - 2.0-rc-2
 
 # What is Eclipse Mosquitto ? 
 
