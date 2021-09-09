@@ -1,0 +1,18 @@
+image: dalmatialab/mqtt
+imageTag: 2.0-rc-1
+imagePullPolicy: Always
+restartPolicy: Always
+
+storage:
+  enabled: false
+  volumeMounts:
+    - name: 
+      mountPath: 
+  volumes:
+    - name: 
+      configMap:
+        name:
+        
+servicename: mqtt-service
+nodePort: 
+nodeSelector: false

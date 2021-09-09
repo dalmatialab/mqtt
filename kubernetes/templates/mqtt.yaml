@@ -1,0 +1,60 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mqtt-deployment
+  labels:
+    app: endian-mqtt
+spec:
+  selector:
+    matchLabels:
+      app: endian-mqtt
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: endian-mqtt
+    spec:
+      containers:
+      - name: mqtt
+        image: {{ .Values.image }}:{{ .Values.imageTag }}
+        imagePullPolicy: {{ .Values.imagePullPolicy }}
+        ports:
+          - containerPort: 1883
+        {{- if .Values.storage.enabled }}
+        volumeMounts:
+        {{- .Values.storage.volumeMounts | toYaml | trimSuffix "\n" | nindent 8 }}
+      	{{- end }}
+      restartPolicy: {{ .Values.restartPolicy }}
+      {{- if .Values.storage.enabled }}
+      volumes:
+      {{- .Values.storage.volumes | toYaml | trimSuffix "\n" | nindent 6 }}
+      {{- end }}
+      {{- if .Values.nodeSelector }}
+      nodeSelector:
+        mqtt: {{ .Values.nodeSelector | quote }}
+      {{- end }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.servicename }}
+spec:
+  ports:
+  - port: 1883
+    name: "1883"
+  selector:
+    app: endian-mqtt
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mqtt-service-external
+spec:
+  ports:
+  - port: 1883
+    name: "1883"
+    targetPort: 1883
+    nodePort: {{ .Values.nodePort }}
+  selector:
+    app: endian-mqtt
+  type: NodePort
