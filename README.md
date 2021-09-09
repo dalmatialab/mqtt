@@ -3,8 +3,8 @@
 
 # Supported tags and respective Dockerfile links
 
- - 2.0-rc-1
- - 2.0-rc-2
+ - [2.0-rc-1](https://github.com/dalmatialab/mqtt/blob/8fa2f1b639ba42e4cb511533090c2a078e2ce04d/Dockerfile)
+ - [2.0-rc-2](https://github.com/dalmatialab/mqtt/blob/bc47d1204d183bbcd49c5ccc0d37713b297eed3a/Dockerfile)
 
 # What is Eclipse Mosquitto ? 
 
